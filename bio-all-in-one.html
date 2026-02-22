@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Bio | Connect With Me</title>
+    <meta name="description" content="Personal bio page with contact information, social links, and banking details.">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette */
+            --bg-color: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --accent: #3b82f6;
+            --glass-blur: blur(16px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* Animated Background Shapes */
+        .background-shapes {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 10s infinite alternate ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: #4f46e5;
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #9333ea;
+            bottom: -20%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: #0ea5e9;
+            top: 40%;
+            left: 50%;
+            animation-duration: 15s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(40px, 60px) scale(1.1);
+            }
+        }
+
+        /* Container & Glass Card */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            z-index: 10;
+            perspective: 1000px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+            transform: translateY(0) scale(1);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: transform, box-shadow;
+        }
+
+        .container:hover .glass-card {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Profile Section */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            padding: 4px;
+            background: linear-gradient(45deg, #4f46e5, #0ea5e9, #9333ea);
+            background-size: 200% 200%;
+            position: relative;
+            overflow: hidden;
+            animation: gradient-spin 4s ease infinite;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--bg-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes gradient-spin {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bio-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Sections */
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--card-border);
+            margin-left: 15px;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 55px;
+            height: 55px;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: var(--text-primary);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+        }
+
+        .facebook:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+        }
+
+        .discord:hover {
+            background: #5865F2;
+            border-color: #5865F2;
+        }
+
+        .tiktok:hover {
+            background: #000000;
+            border-color: #333333;
+        }
+
+        .github:hover {
+            background: #333333;
+            border-color: #555555;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(6px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: var(--accent);
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover .icon-box {
+            transform: scale(1.1);
+            color: #fff;
+            background: var(--accent);
+        }
+
+        .info-item span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* Banking Section */
+        .banking-section {
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle Animated Border for Banking */
+        .banking-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent 0%, transparent 70%, rgba(79, 70, 229, 0.3) 100%);
+            animation: rotate-border 4s linear infinite;
+            z-index: 0;
+        }
+
+        .banking-section::after {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            background: inherit;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            z-index: 0;
+        }
+
+        .bank-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bank-details div {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .bank-details strong {
+            color: var(--text-primary);
+            font-size: 15px;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .bank-details strong:hover {
+            color: var(--accent);
+        }
+
+        .qr-code {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            padding: 6px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .qr-code:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .qr-code img {
+            width: 80px;
+            height: 80px;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .qr-code p {
+            font-size: 10px;
+            color: #333;
+            font-weight: 700;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        @keyframes rotate-border {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Toast Notification for copying */
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(50px);
+            background: #10b981;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .toast-msg.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .skill-python .skill-progress {
+            background: linear-gradient(90deg, #3776ab, #ffde57);
+        }
+
+        .skill-cpp .skill-progress {
+            background: linear-gradient(90deg, #00599c, #004481);
+        }
+
+        .skill-html .skill-progress {
+            background: linear-gradient(90deg, #e34c26, #f06529);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .glass-card {
+                padding: 30px 20px;
+            }
+
+            .banking-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .qr-code {
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated background shapes -->
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Main Glassmorphism Card -->
+        <main class="glass-card">
+
+            <!-- Profile Info -->
+            <section class="profile-section">
+    <div class="profile-image">
+        <img src="https://i.ibb.co/9k8NBZTv/IMG-2561.jpg" alt="Profile avatar">
+    </div>
+    <h1 class="name">Đinh Lưu Phúc Thịnh</h1>
+    <p class="bio-text">Nhà thiết kế sáng tạo. Tin tưởng vào vẻ đẹp của sự tối giản, tập trung vào trải
+        nghiệm người dùng hoàn hảo và đưa những ý tưởng nghệ thuật vào từng sản phẩm công nghệ.</p>
+          </section>
+
+            <!-- Social Links -->
+            <div class="section-title">Kết nối với tôi</div>
+            <section class="social-links">
+                <!-- Thay đổi href thành link thực tế của bạn -->
+                <a href="https://www.facebook.com/anh0sai30sai" target="_blank" class="social-link facebook"
+                    aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://discord.com/users/904357626719121419" target="_blank" class="social-link discord"
+                    aria-label="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://www.tiktok.com/@handoivodoizz" target="_blank" class="social-link tiktok"
+                    aria-label="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://github.com/phucthinhvn122" target="_blank" class="social-link github"
+                    aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </section>
+
+            <!-- Skills Information -->
+            <div class="section-title">Kỹ năng lập trình</div>
+            <section class="skills-section">
+                <!-- Python Skill -->
+                <div class="skill-item skill-python">
+                    <div class="skill-info">
+                        <span><i class="fab fa-python" style="margin-right: 5px;"></i> Python</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="85%"></div>
+                    </div>
+                </div>
+
+                <!-- C++ Skill -->
+                <div class="skill-item skill-cpp">
+                    <div class="skill-info">
+                        <span><i class="fas fa-file-code" style="margin-right: 5px;"></i> C++</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="75%"></div>
+                    </div>
+                </div>
+
+                <!-- HTML Skill -->
+                <div class="skill-item skill-html">
+                    <div class="skill-info">
+                        <span><i class="fab fa-html5" style="margin-right: 5px;"></i> HTML</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="90%"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <div class="section-title">Thông tin liên hệ</div>
+            <section class="contact-info">
+                <a href="mailto:phucthinhvn122@gmail.com" class="info-item">
+                    <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                    <span>phucthinhvn122@gmail.com</span>
+                </a>
+                <a href="https://t.me/thinhvn11111" target="_blank" class="info-item">
+                    <div class="icon-box"><i class="fab fa-telegram-plane"></i></div>
+                    <span>Telegram: @thinhvn11111</span>
+                </a>
+
+            </section>
+
+            <!-- Banking Information -->
+            <div class="section-title">Ủng hộ / Banking</div>
+            <section class="banking-section">
+                <div class="bank-details">
+                    <div class="bank-name">Ngân hàng: <strong>Vietcombank</strong></div>
+                    <div class="account-name">Chủ TK: <strong>DINH LUU PHUC THINH</strong></div>
+                    <div class="account-number">Số TK: <strong class="copy-target">1063002063</strong></div>
+                </div>
+                <div class="qr-code">
+                    <img src="https://img.vietqr.io/image/Vietcombank-1063002063-compact2.jpg" alt="QR Code Bank">
+                    <p>Quét mã</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Script for interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove old tilt effect, currently handled by pure smooth CSS hover
+
+            // Create a toast element for copy notifications
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = '<i class="fas fa-check-circle"></i> Đã sao chép!';
+            document.body.appendChild(toast);
+
+            let toastTimeout;
+            const showToast = (message) => {
+                toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                toast.classList.add('show');
+
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            };
+
+            // Copy to clipboard functionality logic
+            const copyableElements = document.querySelectorAll('.copy-target');
+
+            copyableElements.forEach(el => {
+                el.setAttribute('title', 'Nhấn để sao chép số tài khoản');
+                el.addEventListener('click', () => {
+                    const textToCopy = el.innerText.replace(/\s+/g, ''); // Remove spaces for account numbers
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        showToast('Đã sao chép: ' + el.innerText);
+                    }).catch(err => {
+                        console.error('Không thể sao chép: ', err);
+                    });
+                });
+            });
+
+            // Animate Skill Bars on Load
+            setTimeout(() => {
+                const skillBars = document.querySelectorAll('.skill-progress');
+                skillBars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-width');
+                    bar.style.width = targetWidth;
+                });
+            }, 300); // Slight delay for better effect after page load
+        });
+    </script>
+</body>
+
+</html>
